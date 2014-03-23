@@ -51,3 +51,17 @@ end
 def mapValue(x, in_min, in_max, out_min, out_max)
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 end
+
+def interpPointInSet(x, set) # could i make a custom lambda i pass out?
+  # find two closest x values
+  # first one: use normal set
+  # second: delete first, repeat
+  # map value using x and corresponding y
+  x_values = set.transpose[0]
+  x1 = x_values.min{|a,b| (x-a).abs <=> (x-b).abs}
+  y1 = (set.detect {|n| n[0] == x1})[1]
+  x_values.delete(x1)
+  x2 = x_values.min{|a,b| (x-a).abs <=> (x-b).abs}
+  y2 = (set.detect {|n| n[0] == x2})[1]
+  return mapValue(x,x1,x2,y1,y2)
+end
