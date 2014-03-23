@@ -6,11 +6,11 @@ class TMotor2685 < Propeller
 	def initialize 
 		super
 
-		@name = "TMotor2685"
-		@geom = parseGeomData('tmotor2685_geom.txt')#geom = [all radii, all chord, all twist]
-		@airfoil = parseAirfoil('naca6412_cad.dat') #foil = [[x,y] x n]
+		@name = "apc_10x4.7"
+		@geom = parseGeomData('apcsf_10x4.7_geom.txt')#geom = [all radii, all chord, all twist]
+		@airfoil = parseAirfoil('naca4412_cad.dat') #foil = [[x,y] x n]
 		@keyRadii = @geom[0]
-		@radius = 330.0
+		@radius = 127.0
 	end
 
 	def translate radius

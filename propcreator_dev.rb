@@ -1,16 +1,19 @@
 require 'gnuplot'
+require_relative 'Prop_Math'
+
+require_relative 'TMotor2685'
 
 def parseGeomData(filename)
 	f = File.open(filename)
 
-	geom_data = [[],[],[]] # format is radius, chord, twist
+	geom_data = [] # format is radius, chord, twist
 	f.each_line do |s|
 		next if f.lineno < 2
 		geom = s.split
 
-		geom_data[0] << geom[0].to_f.round(5)
-		geom_data[1] <<	geom[1].to_f
-		geom_data[2] <<	geom[2].to_f*Math::PI/180
+		geom_data << [geom[0].to_f.round(5),
+					geom[1].to_f,
+					geom[2].to_f*Math::PI/180]
 	end
 
 	return geom_data
