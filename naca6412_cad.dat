@@ -1,7 +1,5 @@
-NACA 6412 just closed up the last point so it's a complete loop
+NACA 6412  closed up the last point so it's a complete loop, deleted last few pts on trailing edge to make the edge cleaner
      1.00000   0.00000
-     0.99758   0.00216
-     0.98961   0.00490
      0.97640   0.00935
      0.95808   0.01538
      0.93481   0.02278
@@ -57,7 +55,4 @@ NACA 6412 just closed up the last point so it's a complete loop
      0.93121   0.00252
      0.95546   0.00129
      0.97465   0.00024
-     0.98854  -0.00057
-     0.99694  -0.00107
-     0.99975  -0.00124
      1.00000   0.00000
