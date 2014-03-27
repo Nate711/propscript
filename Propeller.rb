@@ -15,11 +15,17 @@ class Propeller
 	end
 
 	def rotate radius
-		interpPointInSet(radius,[@geom[0],@geom[2]])# passing in radius and cloud of [radius,chord]
+		r =  @geom[2][@geom[0].find_index(radius)]#interpPointInSet(radius,[@geom[0],@geom[2]])# passing in radius and cloud of [radius,chord]
+		#p r
+		return r
 	end
 
 	def scale radius
-		interpPointInSet(radius,[@geom[0],@geom[1]])*@radius
+		#index = @
+		#print "index #{@geom[0].find_index(radius)}, radius #{radius}\n"
+		a = @geom[1][@geom[0].find_index(radius)]
+		return a*@radius
+		#interpPointInSet(radius,[@geom[0],@geom[1]])*@radius
 	end
 
 	def stiffness_modifier radius
@@ -28,9 +34,11 @@ class Propeller
 	end
 
 	def getFoil radius # returns pt cloud [[x,y] x n]
+		scaleFactor = scale(radius)
+		p translate(radius)
 		return translateShape(
 			rotPoints(
-				scaleShapeXY(@airfoil,scale(radius),scale(radius)*stiffness_modifier(radius)), #why so many f(radius)??
+				scaleShapeXY(@airfoil,scaleFactor,scaleFactor*stiffness_modifier(radius)), #why so many f(radius)??
 				rotate(radius)),
 			translate(radius)[0],
 			translate(radius)[1])
@@ -41,7 +49,7 @@ class Propeller
 		count = 1
 		@keyRadii.each do |radius| #because we are interpolating we don't really need to use the key radii
 			foilWithZ = airfoilXYZ(radius)
-			p foilWithZ
+			#p foilWithZ
 			writeSolidworksCurve("#{@name}/#{@name}_#{count}.sldcrv",foilWithZ[0],foilWithZ[1],foilWithZ[2])
 			count+=1
 		end

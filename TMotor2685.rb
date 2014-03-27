@@ -12,9 +12,8 @@ class TMotor2685 < Propeller
 		@keyRadii = @geom[0]
 		@radius = 330.0
 	end
-
 	def translate radius
-		return [0,0]
+		return [(0.1*(radius-0.3)**3-0.035)*@radius,0]
 	end
 
 	def stiff radius
