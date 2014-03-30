@@ -1,6 +1,6 @@
 require 'gnuplot'
 
-def parseGeomData(filename)
+def parseGeomData(filename, cc = true)
 	f = File.open(filename)
 
 	geom_data = [[],[],[]] # format is radius, chord, twist
@@ -17,12 +17,12 @@ def parseGeomData(filename)
 end
 
 
-def parseAirfoil(filename)
+def parseAirfoil(filename, cc = true)
 	f = File.open(filename)
 	result = []
 	f.each_line do |line|
 		next if f.lineno === 1
-		result << [1-line.chomp.split[0].to_f,line.chomp.split[1].to_f]
+		result << [-line.chomp.split[0].to_f,line.chomp.split[1].to_f]
 	end
 	return result
 end
