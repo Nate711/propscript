@@ -8,12 +8,19 @@ class Propeller
 
 	@radius
 
-	def initialize		
+	@hubFoil
+	
+	def initialize	
+		
 	end
 
 	def translate radius
 	end
-
+	def getHubFoil
+		xFactor = @radius*0.08
+		yFactor = @radius*0.2
+		airfoilXYZ(translateShape(scaleShapeXY(@airfoil,xFactor,yFactor),xFactor/2.0,0),0)
+	end
 	def rotate radius
 		r =  @geom[2][@geom[0].find_index(radius)]#interpPointInSet(radius,[@geom[0],@geom[2]])# passing in radius and cloud of [radius,chord]
 		#p r
@@ -28,17 +35,17 @@ class Propeller
 		#interpPointInSet(radius,[@geom[0],@geom[1]])*@radius
 	end
 
-	def stiffness_modifier radius
+	def stiffness_modifier radius, chord
 		1.0
 		#custom-ish for 3d printing
 	end
 
 	def getFoil radius # returns pt cloud [[x,y] x n]
 		scaleFactor = scale(radius)
-		p translate(radius)
+		#p translate(radius)
 		return translateShape(
 			rotPoints(
-				scaleShapeXY(@airfoil,scaleFactor,scaleFactor*stiffness_modifier(radius)), #why so many f(radius)??
+				scaleShapeXY(@airfoil,scaleFactor,stiffness_modifier(radius,scaleFactor)), #why so many f(radius)??
 				rotate(radius)),
 			translate(radius)[0],
 			translate(radius)[1])
@@ -55,14 +62,14 @@ class Propeller
 		end
 	end
 
-	def airfoilXYZ radius #returns array in [all x, all y, all z]
-		(getFoil(radius).map {|n| n<<radius*@radius}).transpose
+	def airfoilXYZ airfoil1,radius #returns array in [all x, all y, all z]
+		#print "\n\n"
+		return ((airfoil1.map {|n| n<<radius*@radius}).transpose).dup
 	end
 	def writeXSectionsToMacro
-		xSections = []
-		count = 1
+		xSections = getHubFoil() #gethubfoil = [foil1, foil2]
 		@keyRadii.each do |radius| #because we aren't interpolating we don't really need to use the key radii
-			foilWithZ = airfoilXYZ(radius)
+			foilWithZ = airfoilXYZ(getFoil(radius),radius)
 			xSections << foilWithZ
 		end
 
