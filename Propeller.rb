@@ -51,33 +51,16 @@ class Propeller
 			translate(radius)[1])
 	end
 
-	def writeXSections
-		xSections = []
-		count = 1
-		@keyRadii.each do |radius| #because we are interpolating we don't really need to use the key radii
-			foilWithZ = airfoilXYZ(radius)
-			#p foilWithZ
-			writeSolidworksCurve("#{@name}/#{@name}_#{count}.sldcrv",foilWithZ[0],foilWithZ[1],foilWithZ[2])
-			count+=1
-		end
-	end
-
 	def airfoilXYZ airfoil1,radius #returns array in [all x, all y, all z]
 		#print "\n\n"
 		return ((airfoil1.map {|n| n<<radius*@radius}).transpose).dup
 	end
-	def writeXSectionsToMacro
+	def getXSections
 		xSections = getHubFoil() #gethubfoil = [foil1, foil2]
 		@keyRadii.each do |radius| #because we aren't interpolating we don't really need to use the key radii
 			foilWithZ = airfoilXYZ(getFoil(radius),radius)
 			xSections << foilWithZ
 		end
-
-		writeSolidworksMacro("#{@name}.txt",xSections)
-	end
-
-	def build
-		#writeXSections
-		writeXSectionsToMacro
+		return xSections	
 	end
 end

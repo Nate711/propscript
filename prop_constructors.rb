@@ -44,7 +44,7 @@ def cirlce(x0,y0,radius,x)
 	return sqrt(radius**2-(x0-x)**2)+y0
 end
 
-def parseGeomData(filename, cc = true)
+def parseGeomData(filename, cc = true) # [all radius, all chord, all beta]
 	f = File.open(filename)
 
 	geom_data = [[],[],[]] # format is radius, chord, twist
