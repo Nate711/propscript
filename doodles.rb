@@ -21,7 +21,7 @@ if true
 
       
       #for i in (0...sl.length)
-        plot.data << Gnuplot::DataSet.new(geom[0],geom[2]) do |ds|
+        plot.data << Gnuplot::DataSet.new([geom[0],geom[2]]) do |ds|
           ds.with = "lines"
           ds.linewidth = 3
         end
