@@ -36,20 +36,24 @@ if true
 		plot.data << Gnuplot::DataSet.new([geom[0],geom[2]]) do |ds|
 		  ds.with = "lines"
 		  ds.linewidth = 0
+		  ds.title = "apc geom"
 		end
 
 		plot.data << Gnuplot::DataSet.new([geom[0],arctan]) do |ds|
 			ds.with = "lines"
 			ds.linewidth = 0
+			ds.title = "apc vs atan"
 		end
 
 		plot.data << Gnuplot::DataSet.new([geom2[0],arctan2]) do |ds|
 			ds.with = "lines"
 			ds.linewidth = 0
+			ds.title = "tmotor vs atan"
 		end
 		 plot.data << Gnuplot::DataSet.new([geom2[0],geom2[2]]) do |ds|
 		  ds.with = "lines"
 		  ds.linewidth = 3
+		  ds.title = "tmotor geom"
 		end
       #end
     end

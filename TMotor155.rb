@@ -15,18 +15,15 @@ class TMotor155 < Propeller
 		@radius = 190.5
 	end
 	def translate radius
-		return [(-0.1*(radius-0.3)**3+0.035)*@radius,0]
+		return [(-0.1*(radius-0.3)**3+0.035)*@radius,0] # basically translates the tip of the rotor, graph looks like ------\
 	end
 	def getHubFoil 
 		hub = roundRect(10,3,true).clone
-		hub1 = Marshal.load(Marshal.dump(hub))
+		hub1 = Marshal.load(Marshal.dump(hub)) # i have no idea why i need this super deep clone
 		first = airfoilXYZ(hub,0)
 		second = airfoilXYZ(hub1,0.06)
 		ret = [first,second]
-		#p first, second
-		#p ret
-		print "\n\n\n\n"
-		return ret #,airfoilXYZ(hub.dup,0.1)]
+		return ret 
 	end
 	def stiffness_modifier radius, chord #note this returns what the new chord will be, not a scalefactore
 		if radius<0.15 && chord<20
