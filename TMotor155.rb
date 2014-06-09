@@ -18,8 +18,10 @@ class TMotor155 < Propeller
 		return [(-0.1*(radius-0.3)**3+0.035)*@radius,0] # basically translates the tip of the rotor, graph looks like ------\
 	end
 	def getHubFoil 
-		hub = roundRect(10,3,true).clone
-		hub1 = Marshal.load(Marshal.dump(hub)) # i have no idea why i need this super deep clone
+		hub = roundRect(12,3,true).clone # check if i need clone here or not
+		#should work
+		#hub1 = hub.map {|e| e.clone }
+		hub1 = Marshal.load(Marshal.dump(hub)) #need to deep clone probably because my array is 2 dimensional
 		first = airfoilXYZ(hub,0)
 		second = airfoilXYZ(hub1,0.06)
 		ret = [first,second]

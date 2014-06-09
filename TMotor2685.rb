@@ -3,6 +3,27 @@ require_relative 'prop_constructors'
 require_relative 'Prop_Math'
 
 class TMotor2685 < Propeller
+
+	#notes
+=begin
+geom data
+
+35%, 14% is the peak = 17.5%
+10%, 4% is where the hub end = 8
+20%, 9% + 4% = 13
+30%, 12% + 4% = 16.5
+40%, 13% + 4.5% = 17.5
+50%, 12% + 4.5% = 16.5
+60%, 11% + 4% = 15
+70%, 10% + 4% = 14
+80%, 8% + 3% = 11
+90%, 6% + 2% = 8
+98%, 5% = 4
+
+hub is 8% thick
+
+=end
+
 	def initialize 
 		super
 		@name = "TMotor2685"

@@ -14,6 +14,10 @@ class Propeller
 		
 	end
 
+	def name
+		@name
+	end
+
 	def translate radius
 	end
 	def getHubFoil
