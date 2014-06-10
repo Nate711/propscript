@@ -79,8 +79,10 @@ def writeSolidworksCurve filename, *axes
 	end
 end
 
-def writeSolidworksMacro filename, xsections
-	n = File.new(filename,'w+')
+def writeSolidworksMacro filename, xsections, saveType=:file
+	macrofile = File.new(filename,'w+')
+
+	n = ""
 	n << "Dim swApp As Object\nDim Part As Object\nDim boolstatus As Boolean\nDim longstatus As Long, longwarnings As Long\nSub main()\nSet swApp = _\nApplication.SldWorks\nSet Part = swApp.ActiveDoc\n"
 
 
@@ -100,4 +102,13 @@ def writeSolidworksMacro filename, xsections
 	n <<"Part.FeatureManager.InsertProtrusionBlend False, True, False, 1, 6, 6, 1, 1, True, True, False, 0, 0, 0, True, True, True\n"
 
 	n << "End Sub\n"
+
+	if saveType==:file
+		macrofile<<n
+		return ""
+	elsif saveType==:string
+		return n
+	else
+		raise "unacceptable saveType"
+	end
 end
