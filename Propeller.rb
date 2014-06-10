@@ -25,6 +25,17 @@ class Propeller
 		yFactor = @radius*0.2
 		airfoilXYZ(translateShape(scaleShapeXY(@airfoil,xFactor,yFactor),xFactor/2.0,0),0)
 	end
+
+	def getFlatHub
+		radius = (0.012*@radius).round(0)
+		hub = roundRect((0.076*@radius).round(0)-radius/2.0,radius,true).clone
+		hub1 = Marshal.load(Marshal.dump(hub))
+		first = airfoilXYZ(hub,0)
+		second = airfoilXYZ(hub1,0.06)
+		ret = [first,second]
+		return ret
+	end
+
 	def rotate radius
 		r =  @geom[2][@geom[0].find_index(radius)]#interpPointInSet(radius,[@geom[0],@geom[2]])# passing in radius and cloud of [radius,chord]
 		#p r

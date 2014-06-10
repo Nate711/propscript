@@ -36,15 +36,7 @@ hub is 8% thick
 		return [(-0.1*(radius-0.3)**3+0.035)*@radius,0]
 	end
 	def getHubFoil 
-		hub = roundRect(20,4,true).clone
-		hub1 = Marshal.load(Marshal.dump(hub))
-		first = airfoilXYZ(hub,0)
-		second = airfoilXYZ(hub1,0.06)
-		ret = [first,second]
-		#p first, second
-		#p ret
-		print "\n\n\n\n"
-		return ret #,airfoilXYZ(hub.dup,0.1)]
+		getFlatHub()
 	end
 	def stiffness_modifier radius, chord #note this returns what the new chord will be, not a scalefactore
 		if radius<0.15 && chord<30
