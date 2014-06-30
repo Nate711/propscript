@@ -1,20 +1,24 @@
-require 'sinatra'
+#require 'sinatra'
 
 require_relative 'TMotor2685'
 require_relative 'TMotor155'
+require_relative 'TMotor1861'
 require_relative 'Propeller'
 require_relative 'prop_constructors'
 require_relative 'Prop_Math'
 
 tprop2685 = TMotor2685.new
 tprop155 = TMotor155.new
+tprop1861 = TMotor1861.new
 
 code2865 = writeSolidworksMacro("#{tprop2685.name}.txt",tprop2685.getXSections,:string)
 writeSolidworksMacro("#{tprop155.name}.txt",tprop155.getXSections,:file)
+writeSolidworksMacro("#{tprop1861.name}.txt",tprop155.getXSections,:file)
 
 #p roundRect(20,10)
 print "success\n"
 
+=begin
 get '/' do
 	'propeller creator!'
 end
@@ -30,6 +34,7 @@ end
 not_found do
 	halt 404, 'Sorry! Page not found'
 end
+=end
 
 =begin
 use below for getting additional url
